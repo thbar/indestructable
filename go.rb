@@ -27,7 +27,7 @@ erreurs = []
 
 def op_label(symbol)
   case symbol
-  when :*; 'x'
+  when :*; '×'
   else symbol.to_s
   end
 end
