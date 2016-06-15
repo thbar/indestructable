@@ -1,0 +1,17 @@
+GIT
+  remote: git://github.com/peter-murach/tty.git
+  revision: f951ada70bbb4630085360ceb1e5a262044067bc
+  specs:
+    tty (0.1.0)
+      equatable (~> 0.5.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    equatable (0.5.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  tty!
