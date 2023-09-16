@@ -92,7 +92,7 @@ defmodule Quizz do
   def question_letter({letter, name}) do
     IO.puts("Comment prononce-t-on la lettre #{letter |> inspect} en espagnol ?")
     IO.gets("")
-    IO.puts IO.ANSI.cyan <> name <> IO.ANSI.reset <> "\n"
+    IO.puts(IO.ANSI.cyan() <> name <> IO.ANSI.reset() <> "\n")
     {_, 0} = System.shell(~s(say #{name} --voice Marisol))
   end
 
