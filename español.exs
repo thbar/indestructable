@@ -30,7 +30,17 @@ defmodule Quizz do
     {27, "veintisiete"},
     {28, "veintiocho"},
     {29, "veintinueve"},
-    {30, "treinta"}
+    {30, "treinta"},
+    {31, "treinta y uno"},
+    {40, "cuarenta"},
+    {41, "cuarenta y uno"},
+    {50, "cincuenta"},
+    {60, "sesenta"},
+    {70, "setenta"},
+    {80, "ochenta"},
+    {90, "noventa"},
+    {100, "cien"},
+    {101, "ciento uno"}
   ]
 
   @letters [
