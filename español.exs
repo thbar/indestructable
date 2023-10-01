@@ -75,12 +75,24 @@ defmodule Quizz do
     {"z", "zeta"}
   ]
 
+  @llamarse [
+    {"yo", "me llamo"},
+    {"tú", "te llamas"},
+    {"él", "se llama"},
+    {"nosotros", "nos llamamos"},
+    {"vosotros", "os llamáis"},
+    {"ellos", "se llaman"}
+  ]
+
   def question({number, writing}) do
     IO.puts("Comment écrit-on #{number |> inspect} en espagnol ?")
-    {_, 0} = System.shell(~s(say #{number} --voice Marisol))
+#    {_, 0} = System.shell(~s(say #{number} --voice Marisol))
     data = IO.gets("")
     data = data |> String.trim()
     data = String.replace(data, "o,", "ó")
+    data = String.replace(data, "u,", "ú")
+    data = String.replace(data, "e,", "é")
+    data = String.replace(data, "a,", "á")
 
     if data == writing do
       IO.puts(IO.ANSI.green() <> "OK" <> IO.ANSI.reset() <> "\n")
@@ -114,7 +126,40 @@ defmodule Quizz do
       question_letter(letter)
     end)
   end
+
+  def question_conjugaison({pronoun, writing}) do
+    IO.puts pronoun
+    {_, 0} = System.shell(~s(say #{pronoun} --voice Marisol))
+
+    data = IO.gets("")
+    data = data |> String.trim()
+    data = String.replace(data, "o,", "ó")
+    data = String.replace(data, "u,", "ú")
+    data = String.replace(data, "e,", "é")
+    data = String.replace(data, "a,", "á")
+
+    if data == writing do
+      IO.puts(IO.ANSI.green() <> "OK" <> IO.ANSI.reset() <> "\n")
+    else
+      IO.puts(IO.ANSI.format([:red, "KO!"]))
+      IO.puts("La bonne réponse était: #{writing}\n")
+    end
+
+    IO.puts ""
+    IO.puts "#{pronoun} #{writing}"
+    {_, 0} = System.shell(~s(say #{pronoun} #{writing} --voice Marisol))
+    :timer.sleep(1_000)
+  end
+
+  def questions_llamarse() do
+    IO.puts(IO.ANSI.clear())
+    IO.puts "Conjugaison llamarse\n\n"
+    @llamarse
+    |> Enum.each(fn(x) -> question_conjugaison(x) end)
+  end
 end
 
-# Numbers.questions()
-Quizz.quizz_alphabet()
+# Quizz.questions()
+# Quizz.quizz_alphabet()
+
+Quizz.questions_llamarse()
