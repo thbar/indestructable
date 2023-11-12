@@ -43,6 +43,54 @@ defmodule Quizz do
     {101, "ciento uno"}
   ]
 
+  @expressions [
+    {"gracias", "merci"},
+    {"por favor", "s’il vous plait"},
+    {"de nada", "de rien"},
+    {"lo siento", "je suis désolé"},
+    {"perdon por el retraso", "pardon pour le retard"}
+  ]
+
+  @vocabulaire [
+    {"una imagen", "une image"},
+    {"un diálogo", "un dialogue"},
+    {"una fotografía", "une photographie"},
+    {"un reportaje", "un documentaire"},
+    {"un texto", "un texte"},
+    {"un dibujo", "un dessin"},
+    {"un mapa", "une carte"},
+    {"una pintura", "une peinture"}
+  ]
+
+  @vocabulaire_2 [
+    # {"Le gâteau", "el pastel"},
+    # {"Une table", "una mesa"},
+    # {"Une nappe", "un mantel"},
+    # {"Une fourchette", "un tenedor"},
+    # {"Une cuillère", "una cochura"},
+    # {"Un couteau", "un cuchillo"},
+    # {"Un verre", "un vasa"},
+
+    {"Au dessus de", "arriba de"},
+    # {"A gauche de", "a la izquierda"},
+    # {"A droite de", "a la derecha"},
+    # {"Au milieu de", "en el centro"},
+    # {"Sur quelque chose", "sobre"},
+    {"En dessous de", "abajo"}
+  ]
+
+  @vocabulaire_3 [
+    # {"la fête", "la fiesta"},
+    # {"le ballon", "el globo"},
+    # {"la bougie", "la vela"},
+    # {"le cadeau", "el regalo"},
+    # {"aujourd'hui", "hoy"},
+    {"anniversaire", "el cumpleaños"},
+    {"souhaiter", "desear"},
+    {"l'âge", "la edad"},
+    {"avoir", "tener"}
+  ]
+
   @letters [
     {"a", "a"},
     {"b", "be"},
@@ -76,17 +124,26 @@ defmodule Quizz do
   ]
 
   @llamarse [
-    {"yo", "me llamo"},
-    {"tú", "te llamas"},
-    {"él", "se llama"},
-    {"nosotros", "nos llamamos"},
-    {"vosotros", "os llamáis"},
-    {"ellos", "se llaman"}
+    {"je", "yo me llamo"},
+    {"tu", "tú te llamas"},
+    {"il/elle", "él/ella/usted se llama"},
+    {"nous", "nosotros/nosotras nos llamamos"},
+    {"vous", "vosotros/vosotras os llamáis"},
+    {"ils/elles", "ellos/ellas/ustedes se llaman"}
+  ]
+
+  @tener [
+    {"je", "yo tengo"},
+    {"tu", "tú tienes"},
+    {"elle", "ella tiene"},
+    {"nous", "nosotras tenemos"},
+    {"vous", "vosotras tenéis"},
+    {"elles", "ellas tienen"}
   ]
 
   def question({number, writing}) do
     IO.puts("Comment écrit-on #{number |> inspect} en espagnol ?")
-#    {_, 0} = System.shell(~s(say #{number} --voice Marisol))
+    #    {_, 0} = System.shell(~s(say #{number} --voice Marisol))
     data = IO.gets("")
     data = data |> String.trim()
     data = String.replace(data, "o,", "ó")
@@ -127,9 +184,8 @@ defmodule Quizz do
     end)
   end
 
-  def question_conjugaison({pronoun, writing}) do
-    IO.puts pronoun
-    {_, 0} = System.shell(~s(say #{pronoun} --voice Marisol))
+  def question_conjugaison({french, answer}) do
+    IO.puts(french)
 
     data = IO.gets("")
     data = data |> String.trim()
@@ -138,28 +194,54 @@ defmodule Quizz do
     data = String.replace(data, "e,", "é")
     data = String.replace(data, "a,", "á")
 
-    if data == writing do
+    if data == answer do
       IO.puts(IO.ANSI.green() <> "OK" <> IO.ANSI.reset() <> "\n")
     else
       IO.puts(IO.ANSI.format([:red, "KO!"]))
-      IO.puts("La bonne réponse était: #{writing}\n")
+      IO.puts("La bonne réponse était: #{answer}\n")
     end
 
-    IO.puts ""
-    IO.puts "#{pronoun} #{writing}"
-    {_, 0} = System.shell(~s(say #{pronoun} #{writing} --voice Marisol))
+    IO.puts("")
+    IO.puts(answer)
+    {_, 0} = System.shell(~s(say #{answer} --voice Marisol))
     :timer.sleep(1_000)
   end
 
   def questions_llamarse() do
     IO.puts(IO.ANSI.clear())
-    IO.puts "Conjugaison llamarse\n\n"
+    IO.puts("Conjugaison llamarse\n\n")
+
     @llamarse
-    |> Enum.each(fn(x) -> question_conjugaison(x) end)
+    |> Enum.each(fn x -> question_conjugaison(x) end)
+  end
+
+  def questions_expressions() do
+    @vocabulaire
+    |> Enum.each(fn {a, b} -> question_conjugaison({b, a}) end)
+  end
+
+  def q do
+    @vocabulaire_2
+    |> Enum.each(fn {french, answer} ->
+      question_conjugaison({french, answer})
+    end)
+  end
+
+  def questions_tener() do
+    IO.puts(IO.ANSI.clear())
+    IO.puts("Conjugaison tener\n\n")
+
+    @tener
+    |> Enum.each(fn x -> question_conjugaison(x) end)
   end
 end
 
 # Quizz.questions()
 # Quizz.quizz_alphabet()
+# Quizz.questions_expressions()
 
-Quizz.questions_llamarse()
+Quizz.q()
+
+# Quizz.questions_tener()
+
+# Quizz.questions_llamarse()
