@@ -1,4 +1,17 @@
 defmodule Quizz do
+  [
+    :numbers,
+    :expressions,
+    :vocabulaire,
+    :vocabulaire_2,
+    :vocabulaire_3,
+    :letters,
+    :llamarse,
+    :tener,
+    :vivir
+  ]
+  |> Enum.each(fn x -> Module.register_attribute(__MODULE__, x, persist: true) end)
+
   @numbers [
     {0, "cero"},
     {1, "uno"},
@@ -44,47 +57,46 @@ defmodule Quizz do
   ]
 
   @expressions [
-    {"gracias", "merci"},
-    {"por favor", "s’il vous plait"},
-    {"de nada", "de rien"},
-    {"lo siento", "je suis désolé"},
-    {"perdon por el retraso", "pardon pour le retard"}
+    {"merci", "gracias"},
+    {"s’il vous plait", "por favor"},
+    {"de rien", "de nada"},
+    {"je suis désolé", "lo siento"},
+    {"pardon pour le retard", "perdon por el retraso"}
   ]
 
   @vocabulaire [
-    {"una imagen", "une image"},
-    {"un diálogo", "un dialogue"},
-    {"una fotografía", "une photographie"},
-    {"un reportaje", "un documentaire"},
-    {"un texto", "un texte"},
-    {"un dibujo", "un dessin"},
-    {"un mapa", "une carte"},
-    {"una pintura", "une peinture"}
+    {"une image", "una imagen"},
+    {"un dialogue", "un diálogo"},
+    {"une photographie", "una fotografía"},
+    {"un documentaire", "un reportaje"},
+    {"un texte", "un texto"},
+    {"un dessin", "un dibujo"},
+    {"une carte", "un mapa"},
+    {"une peinture", "una pintura"}
   ]
 
   @vocabulaire_2 [
-    # {"Le gâteau", "el pastel"},
-    # {"Une table", "una mesa"},
-    # {"Une nappe", "un mantel"},
-    # {"Une fourchette", "un tenedor"},
-    # {"Une cuillère", "una cochura"},
-    # {"Un couteau", "un cuchillo"},
-    # {"Un verre", "un vasa"},
-
+    {"Le gâteau", "el pastel"},
+    {"Une table", "una mesa"},
+    {"Une nappe", "un mantel"},
+    {"Une fourchette", "un tenedor"},
+    {"Une cuillère", "una cochura"},
+    {"Un couteau", "un cuchillo"},
+    {"Un verre", "un vasa"},
     {"Au dessus de", "arriba de"},
-    # {"A gauche de", "a la izquierda"},
-    # {"A droite de", "a la derecha"},
-    # {"Au milieu de", "en el centro"},
-    # {"Sur quelque chose", "sobre"},
+    {"A gauche de", "a la izquierda"},
+    {"A droite de", "a la derecha"},
+    {"Au milieu de", "en el centro"},
+    {"Sur quelque chose", "sobre"},
     {"En dessous de", "abajo"}
   ]
 
   @vocabulaire_3 [
-    # {"la fête", "la fiesta"},
-    # {"le ballon", "el globo"},
-    # {"la bougie", "la vela"},
-    # {"le cadeau", "el regalo"},
-    # {"aujourd'hui", "hoy"},
+    {"la fête", "la fiesta"},
+    {"le ballon", "el globo"},
+    {"la bougie", "la vela"},
+    {"le cadeau", "el regalo"},
+    {"aujourd'hui", "hoy"},
     {"anniversaire", "el cumpleaños"},
     {"souhaiter", "desear"},
     {"l'âge", "la edad"},
@@ -141,6 +153,15 @@ defmodule Quizz do
     {"elles", "ellas tienen"}
   ]
 
+  @vivir [
+    {"je", "yo vivo"},
+    {"tu", "tú vives"},
+    {"il", "él vive"},
+    {"nous", "nosotros vivimos"},
+    {"vous", "vosotros vivís"},
+    {"ils", "ellos viven"}
+  ]
+
   def question({number, writing}) do
     IO.puts("Comment écrit-on #{number |> inspect} en espagnol ?")
     #    {_, 0} = System.shell(~s(say #{number} --voice Marisol))
@@ -159,10 +180,10 @@ defmodule Quizz do
     end
   end
 
-  def questions() do
-    IO.puts(IO.ANSI.clear())
+  def questions(key) do
+    #    IO.puts(IO.ANSI.clear())
 
-    @numbers
+    get_data(key)
     |> Enum.each(fn number ->
       question(number)
     end)
@@ -234,14 +255,25 @@ defmodule Quizz do
     @tener
     |> Enum.each(fn x -> question_conjugaison(x) end)
   end
+
+  def get_data(name) do
+    __MODULE__.__info__(:attributes)[name]
+  end
 end
 
-# Quizz.questions()
-# Quizz.quizz_alphabet()
-# Quizz.questions_expressions()
-
-Quizz.q()
-
-# Quizz.questions_tener()
-
-# Quizz.questions_llamarse()
+[
+  :numbers,
+  :tener,
+  :vivir,
+  :llamarse,
+  :expressions,
+  :letters,
+  :vocabulaire,
+  :vocabulaire_2,
+  :vocabulaire_3
+]
+|> Enum.each(fn x ->
+  IO.puts("=========================")
+  IO.puts(x)
+  Quizz.questions(x)
+end)
