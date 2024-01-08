@@ -8,7 +8,10 @@ defmodule Quizz do
     :letters,
     :llamarse,
     :tener,
-    :vivir
+    :vivir,
+    :hablar,
+    :aprender,
+    :ser
   ]
   |> Enum.each(fn x -> Module.register_attribute(__MODULE__, x, persist: true) end)
 
@@ -138,10 +141,10 @@ defmodule Quizz do
   @llamarse [
     {"je", "yo me llamo"},
     {"tu", "tú te llamas"},
-    {"il/elle", "él/ella/usted se llama"},
-    {"nous", "nosotros/nosotras nos llamamos"},
-    {"vous", "vosotros/vosotras os llamáis"},
-    {"ils/elles", "ellos/ellas/ustedes se llaman"}
+    {"il/elle", "él se llama"},
+    {"nous", "nosotros nos llamamos"},
+    {"vous", "vosotros os llamáis"},
+    {"ils/elles", "ellos se llaman"}
   ]
 
   @tener [
@@ -160,6 +163,33 @@ defmodule Quizz do
     {"nous", "nosotros vivimos"},
     {"vous", "vosotros vivís"},
     {"ils", "ellos viven"}
+  ]
+
+  @ser [
+    {"je", "yo soy"},
+    {"tu", "tú eres"},
+    {"il", "él es"},
+    {"nous", "nosotros somos"},
+    {"vous", "vosotros sois"},
+    {"ils", "ellos son"}
+  ]
+
+  @hablar [
+    {"je", "yo hablo"},
+    {"tu", "tú hablas"},
+    {"il", "él habla"},
+    {"nous", "nosotros hablamos"},
+    {"vous", "vosotros habláis"},
+    {"ils", "ellos hablan"}
+  ]
+
+  @aprender [
+    {"je", "yo aprendo"},
+    {"tu", "tú aprendes"},
+    {"il", "él aprende"},
+    {"nous", "nosotros aprendemos"},
+    {"vous", "vosotros aprendéis"},
+    {"ils", "ellos aprenden"}
   ]
 
   def question({number, writing}) do
@@ -185,7 +215,7 @@ defmodule Quizz do
 
     get_data(key)
     |> Enum.each(fn number ->
-      question(number)
+      question_conjugaison(number)
     end)
   end
 
@@ -262,15 +292,18 @@ defmodule Quizz do
 end
 
 [
-  :numbers,
+  #  :numbers,
   :tener,
   :vivir,
   :llamarse,
-  :expressions,
-  :letters,
-  :vocabulaire,
-  :vocabulaire_2,
-  :vocabulaire_3
+  :hablar,
+  :aprender,
+  :ser
+  #  :expressions,
+  #  :letters,
+  #  :vocabulaire,
+  #  :vocabulaire_2
+  #  :vocabulaire_3
 ]
 |> Enum.each(fn x ->
   IO.puts("=========================")
