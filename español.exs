@@ -11,7 +11,11 @@ defmodule Quizz do
     :vivir,
     :hablar,
     :aprender,
-    :ser
+    :ser,
+    :colors,
+    :dates,
+    :grandir_futur,
+    :crier_futur
   ]
   |> Enum.each(fn x -> Module.register_attribute(__MODULE__, x, persist: true) end)
 
