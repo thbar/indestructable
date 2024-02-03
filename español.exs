@@ -106,6 +106,20 @@ defmodule Quizz do
     {"avoir", "tener"}
   ]
 
+  @colors [
+    {"rouge", "rojo"},
+    {"jaune", "amarillo"},
+    {"orange", "naranja"},
+    {"rose", "rosa"},
+    {"violet", "violeta"},
+    {"vert", "verde"},
+    {"bleu", "azul"},
+    {"noir", "negro"},
+    {"blanc", "blanco"},
+    {"gris", "gris"},
+    {"marron", "marrón"}
+  ]
+
   @letters [
     {"a", "a"},
     {"b", "be"},
