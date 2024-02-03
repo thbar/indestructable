@@ -353,17 +353,21 @@ end
 
 [
   #  :numbers,
-  :tener,
-  :vivir,
-  :llamarse,
-  :hablar,
-  :aprender,
-  :ser
-  #  :expressions,
-  #  :letters,
-  #  :vocabulaire,
-  #  :vocabulaire_2
-  #  :vocabulaire_3
+  # :tener,
+  # :vivir,
+  # :llamarse,
+  # :hablar,
+  # :aprender,
+  # :ser
+  # :expressions,
+  # #   :letters,
+  # :vocabulaire,
+  # :vocabulaire_2,
+  # :vocabulaire_3,
+  #   :colors,
+  # :dates,
+  :grandir_futur,
+  :crier_futur
 ]
 |> Enum.each(fn x ->
   IO.puts("=========================")
