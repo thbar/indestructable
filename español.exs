@@ -17,7 +17,11 @@ defmodule Quizz do
     :grandir_futur,
     :crier_futur,
     :acheter_futur,
-    :nettoyer_futur
+    :nettoyer_futur,
+    :jeter_futur,
+    :lire_futur,
+    :etre_futur,
+    :avoir_futur
   ]
   |> Enum.each(fn x -> Module.register_attribute(__MODULE__, x, persist: true) end)
 
@@ -270,6 +274,42 @@ defmodule Quizz do
     {"ils/elles", "achèteront"}
   ]
 
+  @jeter_futur [
+    {"je", "jetterai"},
+    {"tu", "jetteras"},
+    {"il/elle/on", "jettera"},
+    {"nous", "jetterons"},
+    {"vous", "jetterez"},
+    {"ils/elles", "jetteront"}
+  ]
+
+  @lire_futur [
+    {"je", "lirai"},
+    {"tu", "liras"},
+    {"il/elle/on", "lira"},
+    {"nous", "lirons"},
+    {"vous", "lirez"},
+    {"ils/elles", "liront"}
+  ]
+
+  @etre_futur [
+    {"je", "serai"},
+    {"tu", "seras"},
+    {"il/elle/on", "sera"},
+    {"nous", "serons"},
+    {"vous", "serez"},
+    {"ils/elles", "seront"}
+  ]
+
+  @avoir_futur [
+    {"je", "aurai"},
+    {"tu", "auras"},
+    {"il/elle/on", "aura"},
+    {"nous", "aurons"},
+    {"vous", "aurez"},
+    {"ils/elles", "auront"}
+  ]
+
   def question({number, writing}) do
     IO.puts("Comment écrit-on #{number |> inspect} en espagnol ?")
     #    {_, 0} = System.shell(~s(say #{number} --voice Marisol))
@@ -302,7 +342,8 @@ defmodule Quizz do
     IO.puts("Comment prononce-t-on la lettre #{letter |> inspect} en espagnol ?")
     IO.gets("")
     IO.puts(IO.ANSI.cyan() <> name <> IO.ANSI.reset() <> "\n")
-    {_, 0} = System.shell(~s(say #{name} --voice Marisol))
+    # {_, 0} = System.shell(~s(say #{name} --voice Marisol))
+    {_, 0} = System.shell(~s(say #{name} --voice Thomas))
   end
 
   def quizz_alphabet() do
@@ -389,7 +430,11 @@ end
   # :grandir_futur,
   # :crier_futur,
   # :nettoyer_futur,
-  :acheter_futur
+  #  :acheter_futur,
+  # :jeter_futur,
+  # :lire_futur,
+  :etre_futur,
+  :avoir_futur
 ]
 |> Enum.each(fn x ->
   IO.puts("=========================")
