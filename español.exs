@@ -15,6 +15,28 @@ defmodule Quizz do
   ]
   |> Enum.each(fn x -> Module.register_attribute(__MODULE__, x, persist: true) end)
 
+  @dates [
+    {"lundi", "lunes"},
+    {"mardi", "martes"},
+    {"mercredi", "miércoles"},
+    {"jeudi", "jueves"},
+    {"vendredi", "viernes"},
+    {"samedi", "sábado"},
+    {"dimanche", "domingo"},
+    {"janvier", "enero"},
+    {"février", "febrero"},
+    {"mars", "marzo"},
+    {"avril", "abril"},
+    {"mai", "mayo"},
+    {"juin", "junio"},
+    {"juillet", "julio"},
+    {"août", "agosto"},
+    {"septembre", "septiembre"},
+    {"octobre", "octubre"},
+    {"novembre", "noviembre"},
+    {"décembre", "diciembre"}
+  ]
+
   @numbers [
     {0, "cero"},
     {1, "uno"},
