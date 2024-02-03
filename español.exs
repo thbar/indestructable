@@ -192,6 +192,24 @@ defmodule Quizz do
     {"ils", "ellos aprenden"}
   ]
 
+  @grandir_futur [
+    {"je", "grandirai"},
+    {"tu", "grandiras"},
+    {"il/elle/on", "grandira"},
+    {"nous", "grandirons"},
+    {"vous", "grandirez"},
+    {"ils/elles", "grandiront"}
+  ]
+
+  @crier_futur [
+    {"je", "crierai"},
+    {"tu", "crieras"},
+    {"il/elle/on", "criera"},
+    {"nous", "crierons"},
+    {"vous", "crierez"},
+    {"ils/elles", "crieront"}
+  ]
+
   def question({number, writing}) do
     IO.puts("Comment écrit-on #{number |> inspect} en espagnol ?")
     #    {_, 0} = System.shell(~s(say #{number} --voice Marisol))
