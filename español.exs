@@ -151,9 +151,9 @@ defmodule Quizz do
     {"je", "yo tengo"},
     {"tu", "tú tienes"},
     {"elle", "ella tiene"},
-    {"nous", "nosotras tenemos"},
-    {"vous", "vosotras tenéis"},
-    {"elles", "ellas tienen"}
+    {"nous", "nosotros tenemos"},
+    {"vous", "vosotros tenéis"},
+    {"elles", "ellos tienen"}
   ]
 
   @vivir [
