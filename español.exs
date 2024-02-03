@@ -271,10 +271,11 @@ defmodule Quizz do
       IO.puts("La bonne réponse était: #{answer}\n")
     end
 
-    IO.puts("")
     IO.puts(answer)
     {_, 0} = System.shell(~s(say #{answer} --voice Marisol))
     :timer.sleep(1_000)
+    IO.puts("")
+    IO.puts("")
   end
 
   def questions_llamarse() do
