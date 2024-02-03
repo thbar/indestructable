@@ -15,7 +15,9 @@ defmodule Quizz do
     :colors,
     :dates,
     :grandir_futur,
-    :crier_futur
+    :crier_futur,
+    :acheter_futur,
+    :nettoyer_futur
   ]
   |> Enum.each(fn x -> Module.register_attribute(__MODULE__, x, persist: true) end)
 
@@ -250,6 +252,24 @@ defmodule Quizz do
     {"ils/elles", "crieront"}
   ]
 
+  @nettoyer_futur [
+    {"je", "nettoierai"},
+    {"tu", "nettoieras"},
+    {"il/elle/on", "nettoiera"},
+    {"nous", "nettoierons"},
+    {"vous", "nettoierez"},
+    {"ils/elles", "nettoieront"}
+  ]
+
+  @acheter_futur [
+    {"je", "achèterai"},
+    {"tu", "achèteras"},
+    {"il/elle/on", "achètera"},
+    {"nous", "achèterons"},
+    {"vous", "achèterez"},
+    {"ils/elles", "achèteront"}
+  ]
+
   def question({number, writing}) do
     IO.puts("Comment écrit-on #{number |> inspect} en espagnol ?")
     #    {_, 0} = System.shell(~s(say #{number} --voice Marisol))
@@ -312,7 +332,7 @@ defmodule Quizz do
     end
 
     IO.puts(answer)
-    {_, 0} = System.shell(~s(say #{answer} --voice Marisol))
+    {_, 0} = System.shell(~s(say #{answer} --voice Audrey))
     :timer.sleep(1_000)
     IO.puts("")
     IO.puts("")
@@ -366,8 +386,10 @@ end
   # :vocabulaire_3,
   #   :colors,
   # :dates,
-  :grandir_futur,
-  :crier_futur
+  # :grandir_futur,
+  # :crier_futur,
+  # :nettoyer_futur,
+  :acheter_futur
 ]
 |> Enum.each(fn x ->
   IO.puts("=========================")
