@@ -219,6 +219,7 @@ defmodule Quizz do
     data = String.replace(data, "u,", "ú")
     data = String.replace(data, "e,", "é")
     data = String.replace(data, "a,", "á")
+    data = String.replace(data, "i,", "í")
 
     if data == writing do
       IO.puts(IO.ANSI.green() <> "OK" <> IO.ANSI.reset() <> "\n")
