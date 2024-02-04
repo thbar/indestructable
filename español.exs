@@ -21,7 +21,12 @@ defmodule Quizz do
     :jeter_futur,
     :lire_futur,
     :etre_futur,
-    :avoir_futur
+    :avoir_futur,
+    :manger,
+    :manger_futur_anterieur,
+    :creer_futur_anterieur,
+    :aller_futur_anterieur,
+    :finir_futur_anterieur
   ]
   |> Enum.each(fn x -> Module.register_attribute(__MODULE__, x, persist: true) end)
 
@@ -310,6 +315,51 @@ defmodule Quizz do
     {"ils/elles", "auront"}
   ]
 
+  @manger [
+    {"je", "mangerai"},
+    {"tu", "mangeras"},
+    {"il/elle/on", "mangera"},
+    {"nous", "mangerons"},
+    {"vous", "mangerez"},
+    {"ils/elles", "mangeront"}
+  ]
+
+  @manger_futur_anterieur [
+    {"j'", "aurai mangé"},
+    {"tu", "auras mangé"},
+    {"il/elle/on", "aura mangé"},
+    {"nous", "aurons mangé"},
+    {"vous", "aurez mangé"},
+    {"ils/elles", "auront mangé"}
+  ]
+
+  @creer_futur_anterieur [
+    {"j'", "aurai créé"},
+    {"tu", "auras créé"},
+    {"il/elle/on", "aura créé"},
+    {"nous", "aurons créé"},
+    {"vous", "aurez créé"},
+    {"ils/elles", "auront créé"}
+  ]
+
+  @aller_futur_anterieur [
+    {"je", "serai allé"},
+    {"tu", "seras allé"},
+    {"il/elle/on", "sera allé"},
+    {"nous", "serons allés"},
+    {"vous", "serez allés"},
+    {"ils/elles", "seront allés"}
+  ]
+
+  @finir_futur_anterieur [
+    {"j'", "aurai fini"},
+    {"tu", "auras fini"},
+    {"il/elle/on", "aura fini"},
+    {"nous", "aurons fini"},
+    {"vous", "aurez fini"},
+    {"ils/elles", "auront fini"}
+  ]
+
   def question({number, writing}) do
     IO.puts("Comment écrit-on #{number |> inspect} en espagnol ?")
     #    {_, 0} = System.shell(~s(say #{number} --voice Marisol))
@@ -433,8 +483,13 @@ end
   #  :acheter_futur,
   # :jeter_futur,
   # :lire_futur,
-  :etre_futur,
-  :avoir_futur
+  # :etre_futur,
+  # :avoir_futur,
+  # :manger,
+  # :manger_futur_anterieur,
+  # :creer_futur_anterieur,
+  :aller_futur_anterieur,
+  :finir_futur_anterieur
 ]
 |> Enum.each(fn x ->
   IO.puts("=========================")
