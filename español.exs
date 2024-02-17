@@ -26,7 +26,9 @@ defmodule Quizz do
     :manger_futur_anterieur,
     :creer_futur_anterieur,
     :aller_futur_anterieur,
-    :finir_futur_anterieur
+    :finir_futur_anterieur,
+    :vestirse,
+    :llevar
   ]
   |> Enum.each(fn x -> Module.register_attribute(__MODULE__, x, persist: true) end)
 
@@ -360,6 +362,24 @@ defmodule Quizz do
     {"ils/elles", "auront fini"}
   ]
 
+  @vestirse [
+    {"yo", "me visto"},
+    {"tú", "te vistes"},
+    {"él/ella/usted", "se viste"},
+    {"nosotros/nosotras", "nos vestimos"},
+    {"vosotros/vosotras", "os vestís"},
+    {"ellos/ellas/ustedes", "se visten"}
+  ]
+
+  @llevar [
+    {"yo", "llevo"},
+    {"tú", "llevas"},
+    {"él/ella/usted", "lleva"},
+    {"nosotros/nosotras", "llevamos"},
+    {"vosotros/vosotras", "lleváis"},
+    {"ellos/ellas/ustedes", "llevan"}
+  ]
+
   def question({number, writing}) do
     IO.puts("Comment écrit-on #{number |> inspect} en espagnol ?")
     #    {_, 0} = System.shell(~s(say #{number} --voice Marisol))
@@ -488,8 +508,10 @@ end
   # :manger,
   # :manger_futur_anterieur,
   # :creer_futur_anterieur,
-  :aller_futur_anterieur,
-  :finir_futur_anterieur
+  # :aller_futur_anterieur,
+  # :finir_futur_anterieur,
+  :llevar,
+  :vestirse
 ]
 |> Enum.each(fn x ->
   IO.puts("=========================")
