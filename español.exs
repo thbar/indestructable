@@ -5,6 +5,7 @@ defmodule Quizz do
     :vocabulaire,
     :vocabulaire_2,
     :vocabulaire_3,
+    :vocabulaire_4,
     :letters,
     :llamarse,
     :tener,
@@ -380,6 +381,14 @@ defmodule Quizz do
     {"ellos/ellas/ustedes", "llevan"}
   ]
 
+  @vocabulaire_4 "espagnol.csv"
+                 |> File.read!()
+                 |> String.downcase()
+                 |> String.split("\n")
+                 |> Enum.map(&(&1 |> String.split(",")))
+                 |> Enum.map(fn x -> x |> Enum.map(&String.trim/1) end)
+                 |> Enum.map(fn [a, b] -> {a, b} end)
+
   def question({number, writing}) do
     IO.puts("Comment écrit-on #{number |> inspect} en espagnol ?")
     #    {_, 0} = System.shell(~s(say #{number} --voice Marisol))
@@ -510,8 +519,9 @@ end
   # :creer_futur_anterieur,
   # :aller_futur_anterieur,
   # :finir_futur_anterieur,
-  :llevar,
-  :vestirse
+  # :llevar,
+  # :vestirse
+  :vocabulaire_4
 ]
 |> Enum.each(fn x ->
   IO.puts("=========================")
