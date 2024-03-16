@@ -29,7 +29,8 @@ defmodule Quizz do
     :aller_futur_anterieur,
     :finir_futur_anterieur,
     :vestirse,
-    :llevar
+    :llevar,
+    :subjonctif
   ]
   |> Enum.each(fn x -> Module.register_attribute(__MODULE__, x, persist: true) end)
 
@@ -381,6 +382,130 @@ defmodule Quizz do
     {"ellos/ellas/ustedes", "llevan"}
   ]
 
+  @subjonctif [
+    %{verbe: "llevar", pronom: "yo", conjugaison: "lleve"},
+    %{verbe: "llevar", pronom: "tú", conjugaison: "lleves"},
+    %{
+      verbe: "llevar",
+      pronom: "él/ella/usted",
+      conjugaison: "lleve"
+    },
+    %{
+      verbe: "llevar",
+      pronom: "nosotros/nosotras",
+      conjugaison: "llevemos"
+    },
+    %{
+      verbe: "llevar",
+      pronom: "vosotros/vosotras",
+      conjugaison: "llevéis"
+    },
+    %{
+      verbe: "llevar",
+      pronom: "ellos/ellas/ustedes",
+      conjugaison: "lleven"
+    },
+    %{verbe: "aprender", pronom: "yo", conjugaison: "aprenda"},
+    %{verbe: "aprender", pronom: "tú", conjugaison: "aprendas"},
+    %{
+      verbe: "aprender",
+      pronom: "él/ella/usted",
+      conjugaison: "aprenda"
+    },
+    %{
+      verbe: "aprender",
+      pronom: "nosotros/nosotras",
+      conjugaison: "aprendamos"
+    },
+    %{
+      verbe: "aprender",
+      pronom: "vosotros/vosotras",
+      conjugaison: "aprendáis"
+    },
+    %{
+      verbe: "aprender",
+      pronom: "ellos/ellas/ustedes",
+      conjugaison: "aprendan"
+    },
+    %{verbe: "vivir", pronom: "yo", conjugaison: "viva"},
+    %{verbe: "vivir", pronom: "tú", conjugaison: "vivas"},
+    %{
+      verbe: "vivir",
+      pronom: "él/ella/usted",
+      conjugaison: "viva"
+    },
+    %{
+      verbe: "vivir",
+      pronom: "nosotros/nosotras",
+      conjugaison: "vivamos"
+    },
+    %{
+      verbe: "vivir",
+      pronom: "vosotros/vosotras",
+      conjugaison: "viváis"
+    },
+    %{
+      verbe: "vivir",
+      pronom: "ellos/ellas/ustedes",
+      conjugaison: "vivan"
+    },
+    %{verbe: "tener", pronom: "yo", conjugaison: "tenga"},
+    %{verbe: "tener", pronom: "tú", conjugaison: "tengas"},
+    %{
+      verbe: "tener",
+      pronom: "él/ella/usted",
+      conjugaison: "tenga"
+    },
+    %{
+      verbe: "tener",
+      pronom: "nosotros/nosotras",
+      conjugaison: "tengamos"
+    },
+    %{
+      verbe: "tener",
+      pronom: "vosotros/vosotras",
+      conjugaison: "tengáis"
+    },
+    %{
+      verbe: "tener",
+      pronom: "ellos/ellas/ustedes",
+      conjugaison: "tengan"
+    },
+    %{verbe: "vestir", pronom: "yo", conjugaison: "vista"},
+    %{verbe: "vestir", pronom: "tú", conjugaison: "vistas"},
+    %{
+      verbe: "vestir",
+      pronom: "él/ella/usted",
+      conjugaison: "vista"
+    },
+    %{
+      verbe: "vestir",
+      pronom: "nosotros/nosotras",
+      conjugaison: "vistamos"
+    },
+    %{
+      verbe: "vestir",
+      pronom: "vosotros/vosotras",
+      conjugaison: "vistáis"
+    },
+    %{
+      verbe: "vestir",
+      pronom: "ellos/ellas/ustedes",
+      conjugaison: "vistan"
+    }
+  ]
+
+  def subjonctif(verbe) do
+    get_data(:subjonctif)
+    |> Enum.filter(fn %{verbe: v} -> v == verbe end)
+  end
+
+  def subjonctif_choices() do
+    get_data(:subjonctif)
+    |> Enum.map(fn x -> x[:verbe] end)
+    |> Enum.uniq()
+  end
+
   @vocabulaire_4 "espagnol.csv"
                  |> File.read!()
                  |> String.downcase()
@@ -434,7 +559,7 @@ defmodule Quizz do
     end)
   end
 
-  def question_conjugaison({french, answer}) do
+  def question_conjugaison({french, answer}, voice \\ "Audrey") do
     IO.puts(french)
 
     data = IO.gets("")
@@ -452,7 +577,7 @@ defmodule Quizz do
     end
 
     IO.puts(answer)
-    {_, 0} = System.shell(~s(say #{answer} --voice Audrey))
+    {_, 0} = System.shell(~s(say #{french} #{answer} --voice #{voice}))
     :timer.sleep(1_000)
     IO.puts("")
     IO.puts("")
@@ -523,8 +648,21 @@ end
   # :vestirse
   :vocabulaire_4
 ]
-|> Enum.each(fn x ->
-  IO.puts("=========================")
-  IO.puts(x)
-  Quizz.questions(x)
+
+# |> Enum.each(fn x ->
+#   IO.puts("=========================")
+#   IO.puts(x)
+#   Quizz.questions(x)
+# end)
+
+Quizz.subjonctif_choices()
+|> Enum.each(fn verbe ->
+  IO.puts("========== " <> verbe <> " ==========")
+
+  quizz = Quizz.subjonctif(verbe)
+
+  quizz
+  |> Enum.each(fn %{conjugaison: answer, pronom: question, verbe: verbe} ->
+    Quizz.question_conjugaison({question, answer}, "Marisol")
+  end)
 end)
